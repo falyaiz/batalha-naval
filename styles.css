@@ -5,10 +5,11 @@ body {
     padding: 20px;
     min-height: 100vh;
     overflow-x: hidden;
-    background: linear-gradient(to bottom, #87CEEB, #1e3c72); /* Céu e mar base */
+    background: linear-gradient(180deg, #1e3c72 0%, #87CEEB 50%, #1e3c72 100%);
     color: #fff;
     line-height: 1.6;
     position: relative;
+    overflow: hidden;
 }
 
 #ocean-background {
@@ -17,41 +18,55 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Atrás do conteúdo */
+    z-index: -1;
     overflow: hidden;
 }
 
 .parallax-layer {
     position: absolute;
-    width: 200%; /* Maior para loop contínuo */
+    width: 200%;
     height: 100%;
     pointer-events: none;
 }
 
 #sky-layer {
-    background: url('https://www.transparenttextures.com/patterns/clouds.png') repeat-x;
-    background-size: 100% 200px;
-    opacity: 0.5;
+    background: linear-gradient(to bottom, #87CEEB, #1e3c72), url('https://www.transparenttextures.com/patterns/clouds.png') repeat-x;
+    background-size: 100% 200px, auto;
+    opacity: 0.8;
     top: 0;
-    animation: moveSky 60s linear infinite; /* Nuvens lentas */
+    animation: moveSky 60s linear infinite;
 }
 
 #water-layer {
-    background: url('https://www.transparenttextures.com/patterns/water.jpg') repeat-x;
-    background-size: 100% 300px;
+    background: linear-gradient(to bottom, #5fbae8, #4682b4), url('https://www.transparenttextures.com/patterns/water.jpg') repeat-x;
+    background-size: 100% 300px, auto;
     top: 40%;
     height: 60%;
-    animation: moveWater 10s linear infinite; /* Água rápida */
+    animation: moveWater 10s linear infinite;
+    box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.3);
 }
 
 #wave-layer {
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2));
     top: 50%;
-    height: 20px;
-    animation: waveEffect 4s ease-in-out infinite; /* Ondas pulsantes */
+    height: 30px;
+    animation: waveEffect 4s ease-in-out infinite;
+    filter: blur(2px);
 }
 
-/* Animações */
+#particle-layer {
+    top: 0;
+    height: 100%;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: float 15s linear infinite;
+}
+
 @keyframes moveSky {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
@@ -68,97 +83,74 @@ body {
     100% { transform: translateX(0) scaleY(1); }
 }
 
-/* Estilização do conteúdo */
-h1 {
-    font-family: 'Pirata One', cursive;
-    font-size: 3.5em;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 215, 0, 0.5);
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+@keyframes float {
+    0% { transform: translateY(100vh) scale(0.5); opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+}
+
+header {
     position: relative;
     z-index: 1;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    animation: headerGlow 4s infinite alternate;
+}
+
+@keyframes headerGlow {
+    0% { box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
+    100% { box-shadow: 0 4px 15px rgba(255, 215, 0, 0.7); }
+}
+
+h1 {
+    font-family: 'Pirata One', cursive;
+    font-size: 4em;
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6);
+    letter-spacing: 3px;
+    margin: 0;
+    color: #ffd700;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.turn-indicator {
+    font-size: 1.5em;
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(255, 215, 0, 0.2);
+    border: 2px solid #ffd700;
+    border-radius: 5px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    transition: all 0.5s ease;
+}
+
+.turn-indicator.active {
+    background: rgba(0, 255, 0, 0.2);
+    border-color: #00ff00;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
 }
 
 #status {
     font-family: 'Special Elite', monospace;
-    font-size: 1.4em;
-    margin: 10px 0;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 5px;
-    border: 2px solid #ffd700;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    position: relative;
-    z-index: 1;
-}
-
-.container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(10, 40px);
-    gap: 2px;
-    margin: 20px;
-    background: #0a2b4e;
-    padding: 10px;
+    font-size: 1.6em;
+    margin: 20px auto;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.cell {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #87CEEB, #5fbae8);
-    border: 1px solid #4682b4;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.3s;
-}
-
-.cell:hover {
-    transform: scale(1.1);
-    background: #b0e0e6;
-}
-
-.ship {
-    background: linear-gradient(135deg, #666, #333);
-    border: 1px solid #222;
-}
-
-.ship:hover {
-    background: linear-gradient(135deg, #888, #555);
-}
-
-.hit {
-    background: url('https://img.icons8.com/ios-filled/50/FF0000/explosion.png') no-repeat center;
-    background-size: 70%;
-    border: 1px solid #8b0000;
-}
-
-.miss {
-    background: url('https://img.icons8.com/ios-filled/50/FFFFFF/waves.png') no-repeat center;
-    background-size: 60%;
-    background-color: #add8e6;
-    border: 1px solid #4682b4;
-}
-
-h2 {
-    font-family: 'Pirata One', cursive;
-    font-size: 2em;
-    color: #ffd700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 0 0 5px rgba(255, 215, 0, 0.3);
-    letter-spacing: 1px;
-    margin-bottom: 15px;
+    border: 3px solid #ffd700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    max-width: 400px;
     position: relative;
     z-index: 1;
+    animation: statusPulse 2s infinite;
 }
 
 @keyframes statusPulse {
@@ -167,6 +159,116 @@ h2 {
     100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
 }
 
-#status.turn {
-    animation: statusPulse 2s infinite;
+.container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 30px auto;
+    position: relative;
+    z-index: 1;
+    gap: 20px;
+}
+
+.board-section {
+    background: rgba(10, 43, 78, 0.8);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.board-section:hover {
+    transform: translateY(-5px);
+}
+
+h2 {
+    font-family: 'Pirata One', cursive;
+    font-size: 2.5em;
+    color: #ffd700;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 215, 0, 0.4);
+    margin-bottom: 15px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(10, 45px);
+    gap: 3px;
+    margin: 20px auto;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.cell {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #87CEEB, #5fbae8);
+    border: 2px solid #4682b4;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cell:hover {
+    transform: scale(1.15);
+    background: linear-gradient(135deg, #b0e0e6, #87CEEB);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.cell::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    top: 100%;
+    left: 0;
+    transition: top 0.3s ease;
+}
+
+.cell:hover::after {
+    top: 0;
+}
+
+.ship {
+    background: linear-gradient(135deg, #444, #222);
+    border: 2px solid #111;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.ship:hover {
+    background: linear-gradient(135deg, #666, #444);
+}
+
+.hit {
+    background: url('https://img.icons8.com/ios-filled/50/FF0000/explosion.png') no-repeat center;
+    background-size: 80%;
+    border: 2px solid #8b0000;
+    animation: hitShake 0.5s;
+}
+
+@keyframes hitShake {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(5px, -5px); }
+    50% { transform: translate(-5px, 5px); }
+    75% { transform: translate(5px, -5px); }
+    100% { transform: translate(0, 0); }
+}
+
+.miss {
+    background: url('https://img.icons8.com/ios-filled/50/FFFFFF/waves.png') no-repeat center;
+    background-size: 70%;
+    background-color: #add8e6;
+    border: 2px solid #4682b4;
+    animation: missRipple 1s infinite;
+}
+
+@keyframes missRipple {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
