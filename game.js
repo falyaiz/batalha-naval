@@ -108,12 +108,6 @@ function createParticles() {
     }
 }
 
-function updateTurnIndicator() {
-    const turnIndicator = document.getElementById('turn-indicator');
-    turnIndicator.textContent = isMyTurn ? 'Seu Turno!' : 'Turno do Oponente';
-    turnIndicator.classList.toggle('active', isMyTurn);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     setupWebSocket();
 
