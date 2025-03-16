@@ -2,6 +2,7 @@ const GRID_SIZE = 10;
 let playerBoard = [];
 let opponentBoard = [];
 let isMyTurn = false;
+let myPlayerId = null;
 
 function initBoards() {
     for (let i = 0; i < GRID_SIZE; i++) {
@@ -83,16 +84,39 @@ function placeShip(x, y, size, direction) {
 
 function attack(x, y) {
     if (!isMyTurn) {
-        alert("Não é seu turno!");
+        alert("Não é sua vez!");
         return;
     }
     ws.send(JSON.stringify({ type: 'attack', x, y }));
 }
 
+function createParticles() {
+    const particleLayer = document.createElement('div');
+    particleLayer.id = 'particle-layer';
+    particleLayer.className = 'parallax-layer';
+    document.getElementById('ocean-background').appendChild(particleLayer);
+
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.width = Math.random() * 5 + 2 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        particleLayer.appendChild(particle);
+    }
+}
+
+function updateTurnIndicator() {
+    const turnIndicator = document.getElementById('turn-indicator');
+    turnIndicator.textContent = isMyTurn ? 'Seu Turno!' : 'Turno do Oponente';
+    turnIndicator.classList.toggle('active', isMyTurn);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     setupWebSocket();
 
-    // Criar camadas animadas
     const oceanBg = document.getElementById('ocean-background');
 
     const skyLayer = document.createElement('div');
@@ -110,6 +134,5 @@ document.addEventListener('DOMContentLoaded', () => {
     waveLayer.className = 'parallax-layer';
     oceanBg.appendChild(waveLayer);
 
-    // Animação manual (opcional, já que CSS cobre isso)
-    // Removido para evitar duplicação com CSS
+    createParticles();
 });
