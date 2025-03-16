@@ -1,6 +1,6 @@
 let ws;
 function setupWebSocket() {
-    ws = new WebSocket('wss://batalha-naval-server.glitch.me'); // Use sua URL do Glitch
+    ws = new WebSocket('wss://batalha-naval-server.glitch.me');
     ws.onopen = () => {
         document.getElementById('status').textContent = 'Conectado! Aguardando oponente...';
         initBoards();
