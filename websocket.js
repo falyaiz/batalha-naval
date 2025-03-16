@@ -13,6 +13,7 @@ function setupWebSocket() {
                 isMyTurn = data.first;
                 document.getElementById('status').textContent = 
                     isMyTurn ? 'Seu turno!' : 'Turno do oponente!';
+                updateTurnIndicator();
                 break;
             case 'attack':
                 if (data.hit) {
@@ -23,6 +24,7 @@ function setupWebSocket() {
                 renderBoards();
                 isMyTurn = true;
                 document.getElementById('status').textContent = 'Seu turno!';
+                updateTurnIndicator();
                 break;
             case 'defend':
                 let hit = playerBoard[data.x][data.y] === 1;
@@ -31,6 +33,7 @@ function setupWebSocket() {
                 ws.send(JSON.stringify({ type: 'response', x: data.x, y: data.y, hit }));
                 isMyTurn = false;
                 document.getElementById('status').textContent = 'Turno do oponente!';
+                updateTurnIndicator();
                 break;
             case 'win':
                 alert('Você venceu!');
