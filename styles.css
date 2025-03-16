@@ -30,7 +30,7 @@ body {
 }
 
 #sky-layer {
-    background: linear-gradient(to bottom, #87CEEB, #1e3c72), url('https://www.transparenttextures.com/patterns/clouds.png') repeat-x;
+    background: linear-gradient(to bottom, #87CEEB, #1e3c72), url('https://www.transparenttextures.com/patterns/white-diamond.png') repeat-x;
     background-size: 100% 200px, auto;
     opacity: 0.8;
     top: 0;
@@ -38,7 +38,7 @@ body {
 }
 
 #water-layer {
-    background: linear-gradient(to bottom, #5fbae8, #4682b4), url('https://www.transparenttextures.com/patterns/water.jpg') repeat-x;
+    background: linear-gradient(to bottom, #5fbae8, #4682b4), url('https://www.transparenttextures.com/patterns/ripples.png') repeat-x;
     background-size: 100% 300px, auto;
     top: 40%;
     height: 60%;
