@@ -10,14 +10,17 @@
         <div id="ocean-background">
             <!-- Camadas de fundo serão adicionadas via JS -->
         </div>
-        <h1>Batalha Naval Multiplayer</h1>
+        <header>
+            <h1>Batalha Naval Multiplayer</h1>
+            <div id="turn-indicator" class="turn-indicator">Aguardando conexão...</div>
+        </header>
         <div id="status">Conectando...</div>
         <div class="container">
-            <div>
+            <div class="board-section">
                 <h2>Seu Tabuleiro</h2>
                 <div id="playerGrid" class="grid"></div>
             </div>
-            <div>
+            <div class="board-section">
                 <h2>Tabuleiro do Oponente</h2>
                 <div id="opponentGrid" class="grid"></div>
             </div>
