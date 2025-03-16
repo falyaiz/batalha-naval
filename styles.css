@@ -1,0 +1,172 @@
+body {
+    font-family: 'Special Elite', Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: linear-gradient(to bottom, #87CEEB, #1e3c72); /* Céu e mar base */
+    color: #fff;
+    line-height: 1.6;
+    position: relative;
+}
+
+#ocean-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Atrás do conteúdo */
+    overflow: hidden;
+}
+
+.parallax-layer {
+    position: absolute;
+    width: 200%; /* Maior para loop contínuo */
+    height: 100%;
+    pointer-events: none;
+}
+
+#sky-layer {
+    background: url('https://www.transparenttextures.com/patterns/clouds.png') repeat-x;
+    background-size: 100% 200px;
+    opacity: 0.5;
+    top: 0;
+    animation: moveSky 60s linear infinite; /* Nuvens lentas */
+}
+
+#water-layer {
+    background: url('https://www.transparenttextures.com/patterns/water.jpg') repeat-x;
+    background-size: 100% 300px;
+    top: 40%;
+    height: 60%;
+    animation: moveWater 10s linear infinite; /* Água rápida */
+}
+
+#wave-layer {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+    top: 50%;
+    height: 20px;
+    animation: waveEffect 4s ease-in-out infinite; /* Ondas pulsantes */
+}
+
+/* Animações */
+@keyframes moveSky {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes moveWater {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes waveEffect {
+    0% { transform: translateX(0) scaleY(1); }
+    50% { transform: translateX(-20px) scaleY(1.5); }
+    100% { transform: translateX(0) scaleY(1); }
+}
+
+/* Estilização do conteúdo */
+h1 {
+    font-family: 'Pirata One', cursive;
+    font-size: 3.5em;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 215, 0, 0.5);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+#status {
+    font-family: 'Special Elite', monospace;
+    font-size: 1.4em;
+    margin: 10px 0;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 5px;
+    border: 2px solid #ffd700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    gap: 2px;
+    margin: 20px;
+    background: #0a2b4e;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cell {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #87CEEB, #5fbae8);
+    border: 1px solid #4682b4;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.cell:hover {
+    transform: scale(1.1);
+    background: #b0e0e6;
+}
+
+.ship {
+    background: linear-gradient(135deg, #666, #333);
+    border: 1px solid #222;
+}
+
+.ship:hover {
+    background: linear-gradient(135deg, #888, #555);
+}
+
+.hit {
+    background: url('https://img.icons8.com/ios-filled/50/FF0000/explosion.png') no-repeat center;
+    background-size: 70%;
+    border: 1px solid #8b0000;
+}
+
+.miss {
+    background: url('https://img.icons8.com/ios-filled/50/FFFFFF/waves.png') no-repeat center;
+    background-size: 60%;
+    background-color: #add8e6;
+    border: 1px solid #4682b4;
+}
+
+h2 {
+    font-family: 'Pirata One', cursive;
+    font-size: 2em;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 0 0 5px rgba(255, 215, 0, 0.3);
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes statusPulse {
+    0% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+    50% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+}
+
+#status.turn {
+    animation: statusPulse 2s infinite;
+}
