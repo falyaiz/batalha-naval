@@ -14,9 +14,10 @@ function setupWebSocket() {
             case 'connected':
                 myPlayerId = data.playerId;
                 document.getElementById('status').textContent = 'Conectado! Aguardando oponente...';
-                initBoards(); // Iniciar tabuleiros após conexão
+                initBoards();
                 break;
             case 'start':
+                myPlayerId = data.playerId;
                 isMyTurn = data.first && data.turn === myPlayerId;
                 document.getElementById('status').textContent = 
                     isMyTurn ? 'Seu turno!' : 'Turno do oponente!';
